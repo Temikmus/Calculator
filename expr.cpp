@@ -1,41 +1,36 @@
 #include "expr.h"
 #include "stdlib.h"
+#include <unordered_map>
+#include <cctype>
 
 namespace rpn
 {
-	bool is_op(char op) 
-	{
-		return op == '+' || op == '-' || op == '*' || op == '/';
-	}
+	const char BrackO = '(';
+	const char BrackC = ')';
 
-	bool is_bracket(char op) 
+	struct TokenOp
 	{
-		return op == '(' || op == ')';
-	}
+		int prior = 0;
+		std::shared_ptr<Item> op;
+	};
 
-	int get_prior(char op) 
+
+	std::unordered_map<std::string, TokenOp> operations
 	{
-		if (op == '+' || op == '-') 
-		{
-			return 1;
-		}
-		else if (op == '*' || op == '/') 
-		{
-			return 2;
-		}
+		{"+", {1, std::make_shared<Add>()}},
+		{"-", {1, std::make_shared<Sub>()}},
+		{"*", {2, std::make_shared<Mul>()}},
+		{"/", {2, std::make_shared<Div>()}},
+		{"_", {3, std::make_shared<Minus>()}},
+		{"^", {4, std::make_shared<Exp>()}},
+	};
 
-		return 0;
-	}
 
-	std::shared_ptr<Item> create_op(char op)
+	TokenOp get_op(char op, bool is_right)
 	{
-		switch (op)
-		{
-		case '+': return std::make_shared<Add>();
-		case '-': return std::make_shared<Sub>();
-		case '*': return std::make_shared<Mul>();
-		case '/': return std::make_shared<Div>();
-		}
+		if (is_right) op = '_';
+
+		return operations[std::string(1, op)];
 	}
 
 	void Value::process(expr_stack& stack) const
@@ -70,15 +65,17 @@ namespace rpn
 	{
 		m_expr.clear();
 
-		std::stack<char> stack;
+		std::stack<TokenOp> stack;
 
 		auto buf = str.c_str();
+
+		auto is_right = true;
 
 		while (*buf != 0) 
 		{
 			const auto c = *buf;
 
-			if (!is_op(c) && !is_bracket(c)) 
+			if (std::isdigit(c)) 
 			{
 				char* end;
 				expor_type val = strtol(buf, &end, 10);
@@ -91,31 +88,37 @@ namespace rpn
 			{
 				buf++;
 
-				if (c == '(') 
+				if (c == BrackO)
 				{
-					stack.push(c);
+					stack.push(TokenOp());
 				}
-				else if (c == ')') 
+				else if (c == BrackC)
 				{
 					auto stack_top = stack.top();
 					stack.pop();
 
-					while (stack_top != '(') 
+					while (stack_top.prior > 0) 
 					{
-						m_expr.push_back(create_op(stack_top));
+						m_expr.push_back(stack_top.op);
 
 						stack_top = stack.top();
 						stack.pop();
 					}
 				}
-				else if (is_op(c)) 
+				else
 				{
+					auto cur_op = get_op(c, is_right);
+					if (!cur_op.prior)
+					{
+						continue;
+					}
+
 					if (!stack.empty()) 
 					{
-						char stack_top = stack.top();
+						auto stack_top = stack.top();
 
-						while (get_prior(c) <= get_prior(stack_top)) {
-							m_expr.push_back(create_op(stack_top));
+						while (cur_op.prior <= stack_top.prior) {
+							m_expr.push_back(stack_top.op);
 
 							stack.pop();
 							if (!stack.empty()) 
@@ -129,16 +132,18 @@ namespace rpn
 						}
 					}
 
-					stack.push(c);
+					stack.push(cur_op);
 				}
 			}
+
+			is_right = c == BrackO;
 		}
 
 		while (!stack.empty()) {
 			auto stack_top = stack.top();
 			stack.pop();
 
-			m_expr.push_back(create_op(stack_top));
+			m_expr.push_back(stack_top.op);
 		}
 	}
 

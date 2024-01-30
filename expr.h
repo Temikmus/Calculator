@@ -4,6 +4,7 @@
 #include <vector>
 #include <memory>
 #include <string>
+#include <cmath>
 
 namespace rpn 
 {
@@ -22,7 +23,6 @@ namespace rpn
 	public:
 		Value(expor_type val) : m_val(val)
 		{
-
 		}
 
 		void process(expr_stack&) const override;
@@ -53,6 +53,15 @@ namespace rpn
 
 	private:
 		virtual expor_type calc(expor_type left, expor_type right) const = 0;
+	};
+
+	class Minus : public UnaryOp
+	{
+	public:
+		expor_type calc(expor_type val) const
+		{
+			return -val;
+		}
 	};
 
 	class Add : public BinaryOp
@@ -91,6 +100,15 @@ namespace rpn
 		}
 	};
 
+	class Exp : public BinaryOp
+	{
+	public:
+		expor_type calc(expor_type left, expor_type right) const override
+		{
+			return std::pow(left, right);
+		}
+	};
+
 	class Expr
 	{
 	public:
@@ -102,4 +120,3 @@ namespace rpn
 		std::vector<std::shared_ptr<Item>> m_expr;
 	};
 }
-
