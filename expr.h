@@ -4,11 +4,10 @@
 #include <vector>
 #include <memory>
 #include <string>
-#include <cmath>
 
 namespace rpn 
 {
-	using expor_type = long long;
+	using expor_type = double;
 	using expr_stack = std::stack<expor_type>;
 
 	class Item
@@ -100,23 +99,18 @@ namespace rpn
 		}
 	};
 
-	class Exp : public BinaryOp
-	{
-	public:
-		expor_type calc(expor_type left, expor_type right) const override
-		{
-			return std::pow(left, right);
-		}
-	};
-
 	class Expr
 	{
 	public:
-		void parse(const std::string& str);
+		void parse(std::string str);
 
 		expor_type calc();
 
 	private:
 		std::vector<std::shared_ptr<Item>> m_expr;
 	};
+
+	void add_function(const std::string& name, Item* imp, int priority = 5);
+	void add_operation(char id, Item* imp, int priority, bool is_right = false);
 }
+
