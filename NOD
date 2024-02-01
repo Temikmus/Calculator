@@ -1,0 +1,21 @@
+#include <iostream>
+
+int calculateGCD(int a, int b) {
+    if (b == 0) {
+        return a;
+    }
+    return calculateGCD(b, a % b);
+}
+
+int main() {
+    int a, b;
+    std::cout << "Введите число A: ";
+    std::cin >> a;
+    std::cout << "Введите число B: ";
+    std::cin >> b;
+
+    int gcd = calculateGCD(a, b);
+    std::cout << "Наибольший общий делитель чисел " << a << " и " << b << " равен " << gcd << std::endl;
+
+    return 0;
+}
