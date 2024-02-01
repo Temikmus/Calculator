@@ -1,0 +1,17 @@
+#include <iostream>
+#include <cmath>
+
+double squareRoot(double number) {
+    return sqrt(number);
+}
+
+int main() {
+    double number;
+    std::cout << "Введите число: ";
+    std::cin >> number;
+
+    double result = squareRoot(number);
+    std::cout << "Квадратный корень из " << number << " равен " << result << std::endl;
+
+    return 0;
+}
