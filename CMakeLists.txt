@@ -7,8 +7,9 @@ add_executable(calculator main.cpp
         rational.h
         rational.cpp
         rpn.cpp
-        expr.cpp
         Token.h
         Token.cpp
-        Tokenizer.h
-        tokenizer.cpp)
+        tokenizer.cpp
+        rpn.h
+        tokenizer.h
+)

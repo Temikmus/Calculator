@@ -10,9 +10,10 @@ public:
         R_BRACKET,
         INT_N,
         FLOAT_N,
-        FUNCTION,
+        FUNCTION_KNOW,
         VARIABLE,
-        SEPARATOR
+        SEPARATOR,
+        FUNCTION_UNKNOWN
     };
     enum OperatorAssociativity
     {
