@@ -1,4 +1,5 @@
 #include <stdexcept>
+#define PI 3.14159265358979323846
 
 bool isPrime(int number) {
     if (number <= 1) {
@@ -89,15 +90,22 @@ double calculateSin(double angleDegrees) {
     return result;
 }
 
+double toRadians(double degrees) {
+    return degrees * (PI / 180.0);
+}
+
 // Функция для вычисления косинуса угла в градусах
 double calculateCos(double angleDegrees) {
-    // Преобразование угла из градусов в радианы
-    double angleRadians = angleDegrees * 3.14159265358979323846 / 180.0;
+    // Переводим угол из градусов в радианы
+    double radians = toRadians(angleDegrees);
 
-    // Ряд Тейлора для косинуса
-    double result = 0;
-    for (int n = 0; n < 10; ++n) {
-        result += (power(-1, n) * power(angleRadians, 2 * n)) / factorial(2 * n);
+    // Ряд Тейлора для вычисления косинуса
+    double result = 1.0;
+    double term = 1.0;
+
+    for (int i = 1; i <= 10; ++i) {
+        term *= (-radians * radians) / ((2 * i - 1) * (2 * i));
+        result += term;
     }
 
     return result;

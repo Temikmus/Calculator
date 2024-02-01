@@ -120,12 +120,13 @@ double countRPN(const std::vector<Token> &expr)
                 {
                     case Token::LEFT:
                     {
-                        if (str=="+" || str=="-" || str=="*" || str=="/" || str=="^")
+                        if (str=="+" || str=="-" || str=="*" || str=="/" || str=="^" || str=="%")
                         {
                             auto [a,b] = getTwoTokens(stack);
                             if      (str == "+") res = a + b;
                             else if (str == "-") res = a - b;
                             else if (str == "*") res = a * b;
+                            else if (str == "%") res = (int)a % (int)b;
                             else if (str == "/") res = checkedDivision(a, b);
                             else if (str == "^") res = power(a,b);
                         }
@@ -141,6 +142,7 @@ double countRPN(const std::vector<Token> &expr)
                     {
                         auto a = getOneToken(stack);
                         if   (str == "-") res = -a;
+                        else if   (str == "+") res = a;
                         else throw std::invalid_argument("Unknown operator!");
                         break;
                     }

@@ -80,7 +80,7 @@ void tokenize(const std::string &expr, std::vector<Token> &tokens)
                 bufferTokenType = Token::VARIABLE;
                 if(isLParanth)
                 {
-                    if (buffer=="log" || buffer == "sin")
+                    if (buffer=="log" || buffer=="sin" || buffer=="ln" || buffer=="lg" || buffer=="max" || buffer=="min" || buffer=="sqrt" || buffer=="gcd" || buffer=="lcm" || buffer=="cos" || buffer=="tg" || buffer=="ctg" || buffer=="C" || buffer=="P" || buffer=="isprime")
                         bufferTokenType = Token:: FUNCTION_KNOW;
                     else
                         bufferTokenType=Token:: FUNCTION_UNKNOWN;
@@ -161,7 +161,7 @@ void tokenize(const std::string &expr, std::vector<Token> &tokens)
     }
     if(!buffer.empty())
     {
-        if (buffer=="log" || buffer=="sin")
+        if (buffer=="log" || buffer=="sin" || buffer=="ln" || buffer=="lg" || buffer=="max" || buffer=="min" || buffer=="sqrt" || buffer=="gcd" || buffer=="lcm" || buffer=="cos" || buffer=="tg" || buffer=="ctg" || buffer=="C" || buffer=="P" || buffer=="isprime")
             tokens.push_back({buffer, Token::FUNCTION_KNOW});
         else if(IsInt(buffer))
             tokens.push_back({buffer, Token::INT_N});

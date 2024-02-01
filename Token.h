@@ -27,8 +27,6 @@ public:
     Name getType() const  { return name; }
     OperatorAssociativity getAsc() const { return opAsc; }
     std::string getStr() const { return str; }
-
-private:
     Name name;
     OperatorAssociativity opAsc;
     std::string str;

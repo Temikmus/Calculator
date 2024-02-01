@@ -7,7 +7,7 @@ int main()
 {
     std::vector<Token> tokensInfix, tokensRPN;
 
-    std::string expr;
+    std::string expr;//В expr НАДО ДОБАВИТЬ ПОЛУЧИВШ. СТРОКУ ИЗ КАЛЬКУЛЯТОРА
     std::cin>>expr;
     std::cout << "Expression: " << expr << std::endl;
     try
@@ -44,8 +44,25 @@ int main()
                     type = "SEPARATOR";
                     break;
                 case Token::VARIABLE:
-                    type = "VARIABLE";
+                {
+                    if (i.getStr()=="e")
+                    {
+                        i.str="2.7182818284";
+                        i.name=Token::FLOAT_N;
+                        i.opAsc=Token::NONE;
+                    }
+                    else if(i.getStr()=="pi")
+                    {
+                        i.str="3.1415926535";
+                        i.name=Token::FLOAT_N;
+                        i.opAsc=Token::NONE;
+                    }
+                    else
+                    {
+                        type = "VARIABLE";
+                    }
                     break;
+                }
             }
 
             switch(i.getAsc())
@@ -60,15 +77,12 @@ int main()
                     asc = "LEFT";
                     break;
             }
-            std::cout << i.getStr() << "\t" << type << "\t" << asc << "\n";
+            //std::cout << i.getStr() << "\t" << type << "\t" << asc << "\n";
         }
 
         shuntingYard(tokensInfix, tokensRPN);
-        std::cout << "Reverse Polish Notation: ";
-        for (auto &i : tokensRPN)
-            std::cout << i.getStr() << " ";
-        std::cout << "\n";
-        std::cout << "Answer: " << countRPN(tokensRPN) << "\n";
+        auto answer=countRPN(tokensRPN); // answer - ОТВЕТ. ЕГО НАДО ВЫВЕСТИ.
+        std::cout << "Answer: " << answer << "\n";
     }
     catch (std::invalid_argument ex)
     {
