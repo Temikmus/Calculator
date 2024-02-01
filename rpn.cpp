@@ -4,6 +4,8 @@
 #include <stack>
 #include <cmath>
 #include <tuple>
+#include "math_functions.h"
+
 
 void shuntingYard(const std::vector<Token> &expr, std::vector<Token> &outQueue)
 {
@@ -118,12 +120,20 @@ double countRPN(const std::vector<Token> &expr)
                 {
                     case Token::LEFT:
                     {
-                        auto [a,b] = getTwoTokens(stack);
-                        if      (str == "+") res = a + b;
-                        else if (str == "-") res = a - b;
-                        else if (str == "*") res = a * b;
-                        else if (str == "/") res = checkedDivision(a, b);
-                        else if (str == "^") res = std::pow(a,b);
+                        if (str=="+" || str=="-" || str=="*" || str=="/" || str=="^")
+                        {
+                            auto [a,b] = getTwoTokens(stack);
+                            if      (str == "+") res = a + b;
+                            else if (str == "-") res = a - b;
+                            else if (str == "*") res = a * b;
+                            else if (str == "/") res = checkedDivision(a, b);
+                            else if (str == "^") res = power(a,b);
+                        }
+                        else if (str=="!")
+                        {
+                            auto a = getOneToken(stack);
+                            res = factorial((int)a);
+                        }
                         else throw std::invalid_argument("Unknown operator!");
                         break;
                     }
@@ -144,26 +154,20 @@ double countRPN(const std::vector<Token> &expr)
                 if(str == "log")
                 {
                     auto [a,b] = getTwoTokens(stack);
-                    //if(a <= 0.f || a == 1.0f) throw Error(std::format("log(a,x): not defined for a = {}", a), Error::Math);
-                    //if(b <= 0.f) throw Error("log(a,x): out of function's domain", Error::Math);
+                    if(a <= 0.f || a == 1.0f) throw std::invalid_argument ("log(a,x): not defined for a<=0 or a=1");
+                    if(b <= 0.f) throw std::invalid_argument ("log(a,x): out of function's domain");
                     res = std::log(b) / std::log(a);
-                }
-                else if (str == "log2")
-                {
-                    auto a = getOneToken(stack);
-                    //if(a <= 0.f) throw Error("log2(x): out of function's domain", Error::Math);
-                    res = std::log2(a);
                 }
                 else if(str == "ln")
                 {
                     auto a = getOneToken(stack);
-                    //if(a <= 0.f) throw Error("ln(x): out of function's domain", Error::Math);
+                    if(a <= 0.f) throw std::invalid_argument ("ln(x): out of function's domain");
                     res = std::log(a);
                 }
                 else if(str == "lg")
                 {
                     auto a = getOneToken(stack);
-                    //if(a <= 0.f) throw Error("lg(x): out of function's domain", Error::Math);
+                    if(a <= 0.f) throw std::invalid_argument ("lg(x): out of function's domain");
                     res = std::log10(a);
                 }
                 else if(str == "max")
@@ -178,28 +182,44 @@ double countRPN(const std::vector<Token> &expr)
                 }
                 else if(str == "sqrt")
                 {
-                    auto a = getOneToken(stack);
-                    res = std::sqrt(a);
+                    auto [a,b] = getTwoTokens(stack);
+                    res = calculateRoot(a,(int)b);
+                }
+                else if(str == "gcd")
+                {
+                    auto [a,b] = getTwoTokens(stack);
+                    res = calculateGCD((int)a,(int)b);
+                }
+                else if(str == "lcm")
+                {
+                    auto [a,b] = getTwoTokens(stack);
+                    res = calculateLCM((int)a,(int)b);
                 }
                 else if(str == "sin")
                 {
                     auto a = getOneToken(stack);
-                    res = std::sin(a);
+                    res = calculateSin(a);
                 }
                 else if(str == "cos")
                 {
                     auto a = getOneToken(stack);
-                    res = std::cos(a);
+                    res = calculateCos(a);
                 }
                 else if (str == "tg")
                 {
                     auto a = getOneToken(stack);
-                    res = std::tan(a);
+                    if ((int)a%360==90 || (int)a%360==270)
+                        throw std::invalid_argument ("Can't find tg(x), because cos(x)=0");
+                    else
+                        res = calculateSin(a)/ calculateCos(a);
                 }
                 else if (str == "ctg")
                 {
                     auto a = getOneToken(stack);
-                    res = 1 / std::tan(a);
+                    if ((int)a%180==0)
+                        throw std::invalid_argument ("Can't find ctg(x), because sin(x)=0");
+                    else
+                        res=calculateCos(a)/ calculateSin(a);
                 }
                 else
                     throw std::invalid_argument("Unknown function!");

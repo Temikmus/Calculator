@@ -3,16 +3,3 @@
 int calculateRemainder(int a, int b) {
     return a % b;
 }
-
-int main() {
-    int a, b;
-    std::cout << "Введите число A: ";
-    std::cin >> a;
-    std::cout << "Введите число B: ";
-    std::cin >> b;
-
-    int remainder = calculateRemainder(a, b);
-    std::cout << "Остаток от деления " << a << " на " << b << " равен " << remainder << std::endl;
-
-    return 0;
-}

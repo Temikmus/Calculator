@@ -1,7 +1,7 @@
 #define _USE_MATH_DEFINES
 
 #include "expr.h"
-#include <stdlib.h>
+#include <cstdlib>
 #include <unordered_map>
 #include <cctype>
 #include <cmath>
@@ -92,7 +92,7 @@ namespace rpn
 				throw InvalidExpression;
 			}
 		}
-		
+
 		return res;
 	}
 
@@ -133,8 +133,8 @@ namespace rpn
 	{
 		m_expr.clear();
 
-		auto end_pos = std::remove(str.begin(), str.end(), ' ');
-		str.erase(end_pos, str.end());
+		//auto end_pos = std::remove(str.begin(), str.end(), ' ');
+		//str.erase(end_pos, str.end());
 
 		std::stack<Token> stack;
 
@@ -143,13 +143,13 @@ namespace rpn
 		auto is_right = true;
 		auto is_op = false;
 
-		while (*buf != 0) 
+		while (*buf != 0)
 		{
 			const auto c = *buf;
 
 			is_op = false;
 
-			if (std::isdigit(c)) 
+			if (std::isdigit(c))
 			{
 				char* end;
 				expor_type val = strtod(buf, &end);
@@ -171,7 +171,7 @@ namespace rpn
 					auto stack_top = stack.top();
 					stack.pop();
 
-					while (stack_top.prior > 0) 
+					while (stack_top.prior > 0)
 					{
 						m_expr.push_back(stack_top.op);
 
@@ -203,7 +203,7 @@ namespace rpn
 
 					is_op = !cur_op.is_right;
 
-					if (!stack.empty()) 
+					if (!stack.empty())
 					{
 						auto stack_top = stack.top();
 
@@ -211,11 +211,11 @@ namespace rpn
 							m_expr.push_back(stack_top.op);
 
 							stack.pop();
-							if (!stack.empty()) 
+							if (!stack.empty())
 							{
 								stack_top = stack.top();
 							}
-							else 
+							else
 							{
 								break;
 							}

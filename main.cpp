@@ -1,6 +1,7 @@
 #include <iostream>
 #include "tokenizer.h"
 #include "rpn.h"
+#include <string>
 
 int main()
 {

@@ -5,7 +5,7 @@
 #include <memory>
 #include <string>
 
-namespace rpn 
+namespace rpn
 {
 	using expor_type = double;
 	using expr_stack = std::stack<expor_type>;

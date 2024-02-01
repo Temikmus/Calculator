@@ -12,4 +12,11 @@ add_executable(calculator main.cpp
         tokenizer.cpp
         rpn.h
         tokenizer.h
+        funcs.cpp
+        NOD
+        sqrt
+        "remainder of division"
+        expr.cpp
+        simple
+        math_functions.h
 )
