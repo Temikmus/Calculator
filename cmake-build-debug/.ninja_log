@@ -1,12 +1,11 @@
 # ninja log v5
-0	310	7282592203057715	CMakeFiles/calculator.dir/main.cpp.obj	5b444d1be457a59e
-311	387	7282592203788202	calculator.exe	bcef2dba3d222142
-2	353	7282659853703548	CMakeFiles/calculator.dir/main.cpp.obj	5b444d1be457a59e
-6	389	7282659854067472	CMakeFiles/calculator.dir/rational.cpp.obj	6553455efea47842
-389	472	7282659854864363	calculator.exe	821d399faa50afd3
-2	299	7282662734363270	CMakeFiles/calculator.dir/main.cpp.obj	5b444d1be457a59e
-5	306	7282662734441545	CMakeFiles/calculator.dir/rational.cpp.obj	6553455efea47842
-307	379	7282662735132154	calculator.exe	821d399faa50afd3
-2	294	7282664666735679	CMakeFiles/calculator.dir/main.cpp.obj	5b444d1be457a59e
+4	123	7283969303629525	CMakeFiles/calculator.dir/main.cpp.obj	5b444d1be457a59e
+1525	1858	7283969320907856	calculator.exe	ccec41dc49fb3705
 5	308	7282664666884784	CMakeFiles/calculator.dir/rational.cpp.obj	6553455efea47842
-308	380	7282664667568133	calculator.exe	821d399faa50afd3
+12	958	7283969311985842	CMakeFiles/calculator.dir/rpn.cpp.obj	32c730b9bda54623
+20	1525	7283969317626222	CMakeFiles/calculator.dir/expr.cpp.obj	3d8610eb60755c23
+24	748	7285030615025792	CMakeFiles/calculator.dir/Token.cpp.obj	e895ee40334fbd53
+29	1051	7285030618048762	CMakeFiles/calculator.dir/tokenizer.cpp.obj	5538683319d784a9
+13	1454	7285030622078160	CMakeFiles/calculator.dir/rpn.cpp.obj	32c730b9bda54623
+5	1483	7285030622359919	CMakeFiles/calculator.dir/main.cpp.obj	5b444d1be457a59e
+19	2064	7285030628127255	CMakeFiles/calculator.dir/expr.cpp.obj	3d8610eb60755c23

@@ -3,6 +3,8 @@
 #include <unordered_map>
 #include <cctype>
 
+//"log(2,8)-3^2+4"
+
 namespace rpn
 {
 	const char BrackO = '(';

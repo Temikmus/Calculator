@@ -61,6 +61,30 @@ build CMakeFiles/calculator.dir/rational.cpp.obj: CXX_COMPILER__calculator_unsca
   OBJECT_DIR = CMakeFiles\calculator.dir
   OBJECT_FILE_DIR = CMakeFiles\calculator.dir
 
+build CMakeFiles/calculator.dir/rpn.cpp.obj: CXX_COMPILER__calculator_unscanned_Debug C$:/Users/User/CLionProjects/calculator/rpn.cpp || cmake_object_order_depends_target_calculator
+  DEP_FILE = CMakeFiles\calculator.dir\rpn.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\calculator.dir
+  OBJECT_FILE_DIR = CMakeFiles\calculator.dir
+
+build CMakeFiles/calculator.dir/expr.cpp.obj: CXX_COMPILER__calculator_unscanned_Debug C$:/Users/User/CLionProjects/calculator/expr.cpp || cmake_object_order_depends_target_calculator
+  DEP_FILE = CMakeFiles\calculator.dir\expr.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\calculator.dir
+  OBJECT_FILE_DIR = CMakeFiles\calculator.dir
+
+build CMakeFiles/calculator.dir/Token.cpp.obj: CXX_COMPILER__calculator_unscanned_Debug C$:/Users/User/CLionProjects/calculator/Token.cpp || cmake_object_order_depends_target_calculator
+  DEP_FILE = CMakeFiles\calculator.dir\Token.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\calculator.dir
+  OBJECT_FILE_DIR = CMakeFiles\calculator.dir
+
+build CMakeFiles/calculator.dir/tokenizer.cpp.obj: CXX_COMPILER__calculator_unscanned_Debug C$:/Users/User/CLionProjects/calculator/tokenizer.cpp || cmake_object_order_depends_target_calculator
+  DEP_FILE = CMakeFiles\calculator.dir\tokenizer.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\calculator.dir
+  OBJECT_FILE_DIR = CMakeFiles\calculator.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target calculator
@@ -69,7 +93,7 @@ build CMakeFiles/calculator.dir/rational.cpp.obj: CXX_COMPILER__calculator_unsca
 #############################################
 # Link the executable calculator.exe
 
-build calculator.exe: CXX_EXECUTABLE_LINKER__calculator_Debug CMakeFiles/calculator.dir/main.cpp.obj CMakeFiles/calculator.dir/rational.cpp.obj
+build calculator.exe: CXX_EXECUTABLE_LINKER__calculator_Debug CMakeFiles/calculator.dir/main.cpp.obj CMakeFiles/calculator.dir/rational.cpp.obj CMakeFiles/calculator.dir/rpn.cpp.obj CMakeFiles/calculator.dir/expr.cpp.obj CMakeFiles/calculator.dir/Token.cpp.obj CMakeFiles/calculator.dir/tokenizer.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\calculator.dir
